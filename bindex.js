@@ -3,6 +3,12 @@ require('./db/config');
 const User = require('./db/users');
 var cors = require('cors');
 
+const http = require("http");
+var fs = require('fs');
+const host = '0.0.0.0';
+const port = 8080;
+
+
 const app = express();
 
 app.use(express.json());
@@ -35,31 +41,21 @@ app.post("/Login", async (req, resp) => {
 
 })
 
-const http = require("http");
-var fs = require('fs');
+app.get('/', function(req, res){
+      res.send("Hello World!  <h1>Working enjoy your work</h1>");
+   });
+
+
+
 
 // app.listen(5000)
+app.listen(port, host, () => {
 
-
-const host = '0.0.0.0';
-const port = 8080;
-
-
-const requestListener = function (req, res) {
-
-  fs.readFile('/cloudclusters/mern/demo.html', function(err, data) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    return res.end();
-  });
-};
+console.log(`Server is running on http://${host}:${port}`);
+ });
 
 
 
 
 
-const server = http.createServer(requestListener);
-server.listen(port, host, () => {
 
-    console.log(`Server is running on http://${host}:${port}`);
-});
